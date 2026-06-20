@@ -141,7 +141,7 @@ public class LootTableService : IDisposable
                 };
             }
 
-            return await GetZoneLootTableAsync(territoryId);
+            return await GetZoneLootTableAsync((ushort)territoryId);
         }
         catch (Exception ex)
         {

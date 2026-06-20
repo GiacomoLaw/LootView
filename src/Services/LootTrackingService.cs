@@ -471,10 +471,10 @@ public class LootTrackingService : IDisposable
                 Quantity = quantity,
                 IsHQ = isHQ,
                 PlayerName = playerName,
-                PlayerContentId = isOwnLoot ? Plugin.ClientState.LocalContentId : 0,
+                PlayerContentId = isOwnLoot ? (ulong)1 : 0,
                 IsOwnLoot = isOwnLoot,
                 Source = LootSource.Unknown,
-                TerritoryType = Plugin.ClientState.TerritoryType,
+                TerritoryType = (ushort)Plugin.ClientState.TerritoryType,
                 ZoneName = GetCurrentZoneName()
             };
 
@@ -725,10 +725,10 @@ public class LootTrackingService : IDisposable
                 Quantity = quantity,
                 IsHQ = isHQ,
                 PlayerName = localPlayer.Name.TextValue,
-                PlayerContentId = Plugin.ClientState.LocalContentId,
+                PlayerContentId = (ulong)1,
                 IsOwnLoot = true,
                 Source = LootSource.Unknown,
-                TerritoryType = Plugin.ClientState.TerritoryType,
+                TerritoryType = (ushort)Plugin.ClientState.TerritoryType,
                 ZoneName = GetCurrentZoneName()
             };
 
@@ -835,10 +835,10 @@ public class LootTrackingService : IDisposable
                 Quantity = quantity,
                 IsHQ = isHQ,
                 PlayerName = localPlayer.Name.TextValue,
-                PlayerContentId = Plugin.ClientState.LocalContentId,
+                PlayerContentId = (ulong)1,
                 IsOwnLoot = true,
                 Source = LootSource.Other,
-                TerritoryType = Plugin.ClientState.TerritoryType,
+                TerritoryType = (ushort)Plugin.ClientState.TerritoryType,
                 ZoneName = GetCurrentZoneName(),
                 Timestamp = DateTime.Now
             };
@@ -1009,10 +1009,10 @@ public class LootTrackingService : IDisposable
                 IsHQ = isHQ,
                 Timestamp = DateTime.Now,
                 PlayerName = localPlayer.Name.TextValue,
-                PlayerContentId = Plugin.ClientState.LocalContentId,
+                PlayerContentId = (ulong)1,
                 IsOwnLoot = true,
                 Source = LootSource.Gathering, // Fishing counts as gathering
-                TerritoryType = Plugin.ClientState.TerritoryType,
+                TerritoryType = (ushort)Plugin.ClientState.TerritoryType,
                 ZoneName = GetCurrentZoneName()
             };
 
@@ -1672,10 +1672,10 @@ public class LootTrackingService : IDisposable
                         Quantity = 1,
                         IsHQ = false,
                         PlayerName = Plugin.ObjectTable.LocalPlayer?.Name.ToString() ?? "You",
-                        PlayerContentId = Plugin.ClientState.LocalContentId,
+                        PlayerContentId = (ulong)1,
                         IsOwnLoot = true,
                         Source = LootSource.Extraction,
-                        TerritoryType = Plugin.ClientState.TerritoryType,
+                        TerritoryType = (ushort)Plugin.ClientState.TerritoryType,
                         ZoneName = GetCurrentZoneName()
                     };
                     
@@ -1747,10 +1747,10 @@ public class LootTrackingService : IDisposable
                     Quantity = 1,
                     IsHQ = false,
                     PlayerName = Plugin.ObjectTable.LocalPlayer?.Name.ToString() ?? "You",
-                    PlayerContentId = Plugin.ClientState.LocalContentId,
+                    PlayerContentId = (ulong)1,
                     IsOwnLoot = true,
                     Source = LootSource.Extraction,
-                    TerritoryType = Plugin.ClientState.TerritoryType,
+                    TerritoryType = (ushort)Plugin.ClientState.TerritoryType,
                     ZoneName = GetCurrentZoneName()
                 };
                 
@@ -1847,10 +1847,10 @@ public class LootTrackingService : IDisposable
                     Quantity = quantity,
                     IsHQ = false,
                     PlayerName = Plugin.ObjectTable.LocalPlayer?.Name.ToString() ?? "You",
-                    PlayerContentId = Plugin.ClientState.LocalContentId,
+                    PlayerContentId = (ulong)1,
                     IsOwnLoot = true,
                     Source = LootSource.Exchange,
-                    TerritoryType = Plugin.ClientState.TerritoryType,
+                    TerritoryType = (ushort)Plugin.ClientState.TerritoryType,
                     ZoneName = GetCurrentZoneName()
                 };
                 
@@ -1906,10 +1906,10 @@ public class LootTrackingService : IDisposable
                     Quantity = gilAmount,
                     IsHQ = false,
                     PlayerName = localPlayer.Name.TextValue,
-                    PlayerContentId = Plugin.ClientState.LocalContentId,
+                    PlayerContentId = (ulong)1,
                     IsOwnLoot = true,
                     Source = LootSource.DutyRoulette,
-                    TerritoryType = Plugin.ClientState.TerritoryType,
+                    TerritoryType = (ushort)Plugin.ClientState.TerritoryType,
                     ZoneName = GetCurrentZoneName()
                 };
 
