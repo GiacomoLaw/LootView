@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dalamud.Game.Chat;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Plugin.Services;
@@ -113,10 +114,12 @@ public class LootTrackingService : IDisposable
         }
     }
 
-    private void OnChatMessage(XivChatType type, int timestamp, ref SeString sender, ref SeString message, ref bool isHandled)
+    private void OnChatMessage(IHandleableChatMessage chatMessage)
     {
         try
         {
+            var message = chatMessage.Message;
+            var type = chatMessage.LogKind;
             var messageText = message.TextValue;
             
             // Log for debugging what messages we see
@@ -190,7 +193,7 @@ public class LootTrackingService : IDisposable
     {
         try
         {
-            var localPlayer = Plugin.ClientState.LocalPlayer;
+            var localPlayer = Plugin.ObjectTable.LocalPlayer;
             if (localPlayer == null) return;
 
             // Try to extract item ID from SeString payload (for linked items)
@@ -545,7 +548,7 @@ public class LootTrackingService : IDisposable
         // Example: "8 pinches of ironquartz sand are obtained."
         try
         {
-            var localPlayer = Plugin.ClientState.LocalPlayer;
+            var localPlayer = Plugin.ObjectTable.LocalPlayer;
             if (localPlayer == null) return;
 
             // Try to extract item ID from SeString payload (for linked items)
@@ -745,7 +748,7 @@ public class LootTrackingService : IDisposable
         // Example: "The afflatus spinning wheel is added to your inventory."
         try
         {
-            var localPlayer = Plugin.ClientState.LocalPlayer;
+            var localPlayer = Plugin.ObjectTable.LocalPlayer;
             if (localPlayer == null) return;
 
             // Try to extract item ID from SeString payload (for linked items)
@@ -856,7 +859,7 @@ public class LootTrackingService : IDisposable
         {
             Plugin.Log.Info($"Processing fishing message: {messageText}");
             
-            var localPlayer = Plugin.ClientState.LocalPlayer;
+            var localPlayer = Plugin.ObjectTable.LocalPlayer;
             if (localPlayer == null) return;
 
             // Format: "You land a ItemName measuring N ilms!"
@@ -1668,7 +1671,7 @@ public class LootTrackingService : IDisposable
                         Rarity = itemDataFromPayload.Value.Rarity,
                         Quantity = 1,
                         IsHQ = false,
-                        PlayerName = Plugin.ClientState.LocalPlayer?.Name.ToString() ?? "You",
+                        PlayerName = Plugin.ObjectTable.LocalPlayer?.Name.ToString() ?? "You",
                         PlayerContentId = Plugin.ClientState.LocalContentId,
                         IsOwnLoot = true,
                         Source = LootSource.Extraction,
@@ -1743,7 +1746,7 @@ public class LootTrackingService : IDisposable
                     Rarity = itemData.Value.Rarity,
                     Quantity = 1,
                     IsHQ = false,
-                    PlayerName = Plugin.ClientState.LocalPlayer?.Name.ToString() ?? "You",
+                    PlayerName = Plugin.ObjectTable.LocalPlayer?.Name.ToString() ?? "You",
                     PlayerContentId = Plugin.ClientState.LocalContentId,
                     IsOwnLoot = true,
                     Source = LootSource.Extraction,
@@ -1843,7 +1846,7 @@ public class LootTrackingService : IDisposable
                     Rarity = itemData.Value.Rarity,
                     Quantity = quantity,
                     IsHQ = false,
-                    PlayerName = Plugin.ClientState.LocalPlayer?.Name.ToString() ?? "You",
+                    PlayerName = Plugin.ObjectTable.LocalPlayer?.Name.ToString() ?? "You",
                     PlayerContentId = Plugin.ClientState.LocalContentId,
                     IsOwnLoot = true,
                     Source = LootSource.Exchange,
@@ -1870,7 +1873,7 @@ public class LootTrackingService : IDisposable
         // Handle "A bonus of 12,000 gil has been awarded for using the duty roulette."
         try
         {
-            var localPlayer = Plugin.ClientState.LocalPlayer;
+            var localPlayer = Plugin.ObjectTable.LocalPlayer;
             if (localPlayer == null) return;
 
             // Extract gil amount from message
@@ -2044,7 +2047,7 @@ public class LootTrackingService : IDisposable
             // Pattern: "PlayerName rolls Need/Greed on [the/a] ItemName. XX!"
             if (messageText.StartsWith("You roll "))
             {
-                playerName = Plugin.ClientState.LocalPlayer?.Name.TextValue ?? "You";
+                playerName = Plugin.ObjectTable.LocalPlayer?.Name.TextValue ?? "You";
                 
                 if (messageText.Contains("roll Need on "))
                 {

@@ -35,6 +35,7 @@ public sealed class Plugin : IDalamudPlugin
     [PluginService] public static IGameInteropProvider GameInteropProvider { get; private set; } = null!;
     [PluginService] public static ICondition Condition { get; private set; } = null!;
     [PluginService] public static IDtrBar DtrBar { get; private set; } = null!;
+    [PluginService] public static IObjectTable ObjectTable { get; private set; } = null!;
 
     // Plugin Services
     public LootTrackingService LootTracker { get; private set; }
